@@ -3,6 +3,6 @@ import react from "react";
 
 export default function System() {
     return (
-        <PasswordInputPage codeBlock="system" key="system" />
+        <PasswordInputPage codeBlock="system" key="system" hint="Test Hint" />
     )
 }
