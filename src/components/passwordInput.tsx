@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRouter } from 'next/router';
+import { redirect } from 'next/navigation'
 
 /**
  * 
@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 export default function PasswordInputPage(props: { codeBlock: string, key: string, hint: string }) {
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState('waiting');
-    const router = useRouter();
+    const [incorrect, setIncorrect] = useState('');
 
     const handlePasswordInput = (input) => {
       setPassword(input.target.value);
@@ -19,7 +19,28 @@ export default function PasswordInputPage(props: { codeBlock: string, key: strin
     const handleFormSubmit = async (e) => {
       e.preventDefault();
       setStatus('loading');
-    // wip
+      
+      try {
+        const response = await fetch('/api/verify', {
+          method: 'POST',
+          body: {
+            "key": props.key,
+            "password": password
+          },
+        });
+  
+        if (response.ok) {
+          sessionStorage.setItem('passwordToken', password);
+          setStatus('success');
+          redirect(`../app/${props.codeBlock}/location`); // Redirect user to location page
+        } else {
+          setStatus('fail');
+          setIncorrect('Incorrect. Please try again.')
+        }
+      } catch (error) {
+        console.error('Error: ', error);
+        setStatus('fail');
+      }
     }
     
     return (
@@ -29,6 +50,7 @@ export default function PasswordInputPage(props: { codeBlock: string, key: strin
             </h1>
 
             <div className="grid place-items-center">
+
               <h1 className="bg-white border border-lime-800 border-2 rounded-md p-2 whitespace-nowrap max-w-min text-lg font-bold text-lime-800">
                 Block: {props.codeBlock}
               </h1>
@@ -46,8 +68,10 @@ export default function PasswordInputPage(props: { codeBlock: string, key: strin
                   
                   <button type="submit" disabled={status === 'loading'} className="bg-white border border-lime-800 rounded-md p-2 text-lime-800">Submit</button>
                 </form>
-                {status === 'fail' && <p className="text-sm text-red">Incorrect password.</p>}  // will it disappear when the status changes?
+                {incorrect === 'Incorrect. Please try again.' && <p className="text-sm text-red-600">{incorrect}</p>}
+
               </div>
+
             </div>
         </main>
     )
