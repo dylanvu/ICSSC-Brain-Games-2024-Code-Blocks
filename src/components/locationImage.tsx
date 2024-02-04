@@ -10,7 +10,7 @@ export default function LocationImage({ codeBlock, key, images }: { codeBlock: s
         // const password = sessionStorage.getItem('passwordToken');
         // if (!password || password.length === 0) {
         //     // if not present, redirect to key/
-        //     redirect(`/${key}`); // Redirect user to password page
+        //     redirect(`/block/${key}`);
         // } else {
         //     // make the API call
         //     fetch('/api/verify', {
@@ -25,7 +25,7 @@ export default function LocationImage({ codeBlock, key, images }: { codeBlock: s
         //             setCorrect(true);
         //         } else {
         //             // redirect to key/
-        //             redirect(`/${key}`); // Redirect user to password page
+        //             redirect(`/block/${key}`);
         //         }
         //     });
         // }
