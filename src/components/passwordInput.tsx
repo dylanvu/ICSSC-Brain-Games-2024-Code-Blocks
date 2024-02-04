@@ -33,7 +33,7 @@ export default function PasswordInputPage(props: { codeBlock: string, key: strin
             if (response.ok) {
                 sessionStorage.setItem('passwordToken', password);
                 setStatus('success');
-                redirect(`/${props.codeBlock}/location`); // Redirect user to location page
+                redirect(`/block/${props.codeBlock}/location`); // Redirect user to location page
             } else {
                 setStatus('fail');
                 setIncorrect('Incorrect. Please try again.')
