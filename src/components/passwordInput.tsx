@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from "react";
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation';
 
 /**
  * 
@@ -62,7 +62,7 @@ export default function PasswordInputPage(props: { codeBlock: string, key: strin
                         Hint: {props.hint}
                     </div>
 
-                    <form onSubmit={handleFormSubmit}>
+                    <form onSubmit={handleFormSubmit} className="grid place-items-center">
                         <input value={password} placeholder="Input password..." onChange={handlePasswordInput}
                             disabled={status === 'loading'} className="border border-lime-800 rounded-md p-2 border"></input>
                         <br></br>
