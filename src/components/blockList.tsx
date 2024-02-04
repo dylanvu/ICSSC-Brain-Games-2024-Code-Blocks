@@ -18,7 +18,7 @@ export default function BlockListPage(props: { location: string, codeBlocks: Arr
                     <br></br>
                     {props.codeBlocks.map(block => (
                         // add a special case for the demo only
-                        <a href={`/${block === `("Hello World")` ? "hello-world" : block}`} className="underline text-lime-800">{block}</a>
+                        <a href={`/block/${block === `("Hello World")` ? "hello-world" : block}`} className="underline text-lime-800">{block}</a>
                     ))}
                 </div>
             </div>

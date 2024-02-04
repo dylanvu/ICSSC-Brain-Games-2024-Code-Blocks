@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-
+const passwords: Record<string, string> = {
+    "system": process.env.SYSTEM_PASSWORD || "",
+    "out": process.env.OUT_PASSWORD || "",
+    "paren": process.env.PAREN_PASSWORD || "",
+    "quote": process.env.QUOTE_PASSWORD || "",
+    "reversed": process.env.REVERSED_PASSWORD || "",
+    "hello-world": process.env.HELLO_WORLD_PASSWORD || "",
+};
 /**
  * parses the request body for the password
  * request bodies will look like:
@@ -15,19 +22,9 @@ export async function POST(
     { params }: any,
 ): Promise<any> {
 
-    const passwords: Record<string, string> = {
-        "system": process.env.SYSTEM_PASSWORD || "",
-        "out": process.env.OUT_PASSWORD || "",
-        "paren": process.env.PAREN_PASSWORD || "",
-        "quote": process.env.QUOTE_PASSWORD || "",
-        "reversed": process.env.REVERSED_PASSWORD || "",
-        "hello-world": process.env.HELLO_WORLD_PASSWORD || "",
-    };
-
     const body = await request.json();
-    const key: string = body.key as string;
+    const key: string = body.key;
     const password = body.password;
-
     if (passwords[key] && password === passwords[key]) {
         return NextResponse.json({ status: 200 });
     }

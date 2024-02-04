@@ -3,6 +3,6 @@ import react from "react";
 
 export default function Quote() {
     return (
-        <PasswordInputPage codeBlock={`"`} key="quote" hint="Test Hint" />
+        <PasswordInputPage codeBlock={`"`} blockKey="quote" hint="Test Hint" />
     )
 }
