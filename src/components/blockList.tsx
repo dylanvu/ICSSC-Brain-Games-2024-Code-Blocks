@@ -16,9 +16,9 @@ export default function BlockListPage(props: { location: string, codeBlocks: Arr
                 <div className="bg-white border border-lime-800 border-2 rounded-md p-9 grid place-items-center max-w-min">
                     <p className="whitespace-nowrap text-lime-800">Click on the block below to find its location:</p>
                     <br></br>
-                    {props.codeBlocks.map(block => (
+                    {props.codeBlocks.map((block, index) => (
                         // add a special case for the demo only
-                        <a href={`/block/${block === `("Hello World")` ? "hello-world" : block}`} className="underline text-lime-800">{block}</a>
+                        <a key={block + index.toString()} href={`/block/${block === `("Hello World")` ? "hello-world" : block}`} className="underline text-lime-800">{block}</a>
                     ))}
                 </div>
             </div>

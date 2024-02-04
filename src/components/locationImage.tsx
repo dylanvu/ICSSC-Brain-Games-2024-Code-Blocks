@@ -48,7 +48,7 @@ export default function LocationImage({ codeBlock, blockKey, images }: { codeBlo
 
                 {
                     correct ?
-                        images.map((image) => <LocationImageContainer image={image} />)
+                        images.map((image, index) => <LocationImageContainer key={blockKey + index.toString() + "-image"} image={image} />)
                         : <div>
                             Password is incorrect!
                         </div>

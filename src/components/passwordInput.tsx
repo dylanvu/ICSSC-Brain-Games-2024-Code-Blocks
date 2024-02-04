@@ -12,11 +12,11 @@ export default function PasswordInputPage(props: { codeBlock: string, blockKey: 
     const [status, setStatus] = useState('waiting');
     const [incorrect, setIncorrect] = useState('');
 
-    const handlePasswordInput = (input) => {
+    const handlePasswordInput = (input: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(input.target.value);
     };
 
-    const handleFormSubmit = async (e) => {
+    const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setStatus('loading');
 
