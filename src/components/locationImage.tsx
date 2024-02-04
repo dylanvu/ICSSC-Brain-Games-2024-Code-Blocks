@@ -1,34 +1,35 @@
 'use client'
 import React, { useState, useEffect } from "react";
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { StaticImageData } from "next/image";
 import LocationImageContainer from "./locationImageContainer";
 
-export default function LocationImage({ codeBlock, key, images }: { codeBlock: string, key: string, images: StaticImageData[] }) {
+export default function LocationImage({ codeBlock, blockKey, images }: { codeBlock: string, blockKey: string, images: StaticImageData[] }) {
+    const router = useRouter()
     useEffect(() => {
         // pull from the local storage
-        // const password = sessionStorage.getItem('passwordToken');
-        // if (!password || password.length === 0) {
-        //     // if not present, redirect to key/
-        //     redirect(`/block/${key}`);
-        // } else {
-        //     // make the API call
-        //     fetch('/api/verify', {
-        //         method: 'POST',
-        //         body: {
-        //             "key": key,
-        //             "password": password
-        //         },
-        //     }).then((res) => {
-        //         if (res.ok) {
-        //             // if it is OK, set the state and render the image
-        //             setCorrect(true);
-        //         } else {
-        //             // redirect to key/
-        //             redirect(`/block/${key}`);
-        //         }
-        //     });
-        // }
+        const password = sessionStorage.getItem('passwordToken');
+        if (!password || password.length === 0) {
+            // if not present, redirect to key/
+            router.push(`/block/${blockKey}`);
+        } else {
+            // make the API call
+            fetch('/api/verify', {
+                method: 'POST',
+                body: JSON.stringify({
+                    "key": blockKey,
+                    "password": password
+                }),
+            }).then((res) => {
+                if (res.ok) {
+                    // if it is OK, set the state and render the image
+                    setCorrect(true);
+                } else {
+                    // redirect to key/
+                    router.push(`/block/${blockKey}`);
+                }
+            });
+        }
     }, []);
 
     const [correct, setCorrect] = useState<boolean>(true);

@@ -5,6 +5,6 @@ import above_food_court_1 from "@/components/assets/above_food_court_1.jpg.jpg";
 
 export default function HelloWorldLocation() {
     return (
-        <LocationImage codeBlock={`("Hello-World")`} key="hello-world" images={[above_food_court, above_food_court_1]} />
+        <LocationImage codeBlock={`("Hello-World")`} blockKey="hello-world" images={[above_food_court, above_food_court_1]} />
     )
 }

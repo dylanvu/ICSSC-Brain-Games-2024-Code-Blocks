@@ -1,14 +1,13 @@
 'use client'
 import React, { useState } from "react";
-import { redirect } from 'next/navigation';
 
 /**
  * 
  * @param codeBlock - the title of the page
- * @param key - the key to send to the backend in the body
+ * @param blockKey - the key to send to the backend in the body
  * @returns 
  */
-export default function PasswordInputPage(props: { codeBlock: string, key: string, hint: string }) {
+export default function PasswordInputPage(props: { codeBlock: string, blockKey: string, hint: string }) {
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState('waiting');
     const [incorrect, setIncorrect] = useState('');
@@ -24,16 +23,15 @@ export default function PasswordInputPage(props: { codeBlock: string, key: strin
         try {
             const response = await fetch('/api/verify', {
                 method: 'POST',
-                body: {
-                    "key": props.key,
+                body: JSON.stringify({
+                    "key": props.blockKey,
                     "password": password
-                },
+                }),
             });
 
             if (response.ok) {
                 sessionStorage.setItem('passwordToken', password);
                 setStatus('success');
-                redirect(`/block/${props.key}/location`);
             } else {
                 setStatus('fail');
                 setIncorrect('Incorrect. Please try again.')
@@ -67,10 +65,16 @@ export default function PasswordInputPage(props: { codeBlock: string, key: strin
                             disabled={status === 'loading'} className="border border-lime-800 rounded-md p-2 border"></input>
                         <br></br>
 
-                        <button type="submit" disabled={status === 'loading'} className="bg-white border border-lime-800 rounded-md p-2 text-lime-800">Submit</button>
+                        <button type="submit" disabled={status === 'loading' || status === "success"} className="bg-white border border-lime-800 rounded-md p-2 text-lime-800">Submit</button>
                     </form>
                     {incorrect === 'Incorrect. Please try again.' && <p className="text-sm text-red-600">{incorrect}</p>}
-
+                    {status === "success" ?
+                        <a href={`/block/${props.blockKey}/location`}>
+                            <button className="mt-5 bg-green-500 border border-lime-800 rounded-md p-2 text-lime-800">
+                                Success! Go see location!
+                            </button>
+                        </a> : null}
+                    {status === "success" ? <div className="mt-5">If you are having trouble being redirected to the location, please enable cookies.</div> : null}
                 </div>
 
             </div>
