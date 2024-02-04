@@ -16,11 +16,12 @@ export async function POST(
 ): Promise<any> {
 
     const passwords: Record<string, string> = {
-        "system": process.env.SYSTEM_PASSWORD ||"",
-        "out": process.env.OUT_PASSWORD ||"",
-        "paren": process.env.PAREN_PASSWORD ||"",
-        "quote": process.env.QUOTE_PASSWORD ||"",
-        "reversed": process.env.REVERSED_PASSWORD ||""
+        "system": process.env.SYSTEM_PASSWORD || "",
+        "out": process.env.OUT_PASSWORD || "",
+        "paren": process.env.PAREN_PASSWORD || "",
+        "quote": process.env.QUOTE_PASSWORD || "",
+        "reversed": process.env.REVERSED_PASSWORD || "",
+        "hello-world": process.env.HELLO_WORLD_PASSWORD || "",
     };
 
     const body = await request.json();
