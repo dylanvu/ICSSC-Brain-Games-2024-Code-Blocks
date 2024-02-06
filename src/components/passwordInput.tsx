@@ -43,10 +43,11 @@ export default function PasswordInputPage(props: { codeBlock: string, blockKey: 
     }
 
     return (
-        <main className="min-h-screen p-4 font-mono">
+        <main className="w-screen min-h-screen p-4 font-mono">
             <h1 className="bg-lime-800 border border-white border-2 rounded-md p-2 whitespace-nowrap max-w-min text-white">
                 Code Blocks
             </h1>
+            <br></br>
 
             <div className="grid place-items-center">
 
