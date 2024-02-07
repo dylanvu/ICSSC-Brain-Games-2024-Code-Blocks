@@ -25,10 +25,12 @@ export async function POST(
     const body = await request.json();
     const key: string = body.key;
     const password = body.password;
+    console.log(passwords[key])
+    console.log(password)
     if (passwords[key] && password === passwords[key]) {
-        return NextResponse.json({ status: 200 });
+        return NextResponse.json({}, { status: 200 });
     }
     else {
-        return NextResponse.json({ status: 401 });
+        return NextResponse.json({ error: "incorrect password" }, { status: 401 });
     }
 }

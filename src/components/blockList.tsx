@@ -9,13 +9,13 @@ export default function BlockListPage(props: { location: string, codeBlocks: Arr
             <br></br>
 
             <div className="grid place-items-center">
-                <div className="w-screen grid place-items-center bg-white border border-lime-800 border-2 rounded-md p-2 text-lg font-bold text-lime-800">
-                  <h1>
-                    Location:
-                  </h1>
-                  <h1>
-                    {props.location}
-                  </h1>
+                <div className="w-full grid place-items-center bg-white border border-lime-800 border-2 rounded-md p-2 text-lg font-bold text-lime-800">
+                    <h1>
+                        Location:
+                    </h1>
+                    <h1>
+                        {props.location}
+                    </h1>
                 </div>
                 <br></br><br></br>
 

@@ -10,7 +10,7 @@ import React, { useState } from "react";
 export default function PasswordInputPage(props: { codeBlock: string, blockKey: string, hint: string }) {
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState('waiting');
-    const [incorrect, setIncorrect] = useState('');
+    const [incorrect, setIncorrect] = useState(false);
 
     const handlePasswordInput = (input: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(input.target.value);
@@ -32,13 +32,15 @@ export default function PasswordInputPage(props: { codeBlock: string, blockKey: 
             if (response.ok) {
                 sessionStorage.setItem('passwordToken', password);
                 setStatus('success');
+                setIncorrect(false);
             } else {
                 setStatus('fail');
-                setIncorrect('Incorrect. Please try again.')
+                setIncorrect(true);
             }
         } catch (error) {
             console.error('Error: ', error);
             setStatus('fail');
+            setStatus('success');
         }
     }
 
@@ -68,7 +70,7 @@ export default function PasswordInputPage(props: { codeBlock: string, blockKey: 
 
                         <button type="submit" disabled={status === 'loading' || status === "success"} className="bg-white border border-lime-800 rounded-md p-2 text-lime-800">Submit</button>
                     </form>
-                    {incorrect === 'Incorrect. Please try again.' && <p className="text-sm text-red-600">{incorrect}</p>}
+                    {incorrect && <p className="text-sm text-red-600">Incorrect. Please try again.</p>}
                     {status === "success" ?
                         <a href={`/block/${props.blockKey}/location`}>
                             <button className="mt-5 bg-green-500 border border-lime-800 rounded-md p-2 text-lime-800">
@@ -77,7 +79,6 @@ export default function PasswordInputPage(props: { codeBlock: string, blockKey: 
                         </a> : null}
                     {status === "success" ? <div className="mt-5">If you are having trouble being redirected to the location, please enable cookies.</div> : null}
                 </div>
-
             </div>
         </main>
     )
