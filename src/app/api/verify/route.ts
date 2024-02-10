@@ -27,9 +27,14 @@ export async function POST(
     const password: string = body.password;
     // do some sanitation
     const cleanRealPassword = passwords[key].trim().toLowerCase();
-    const cleanPassword = password.trim().toLowerCase();
-    console.log(passwords[key])
-    console.log(password)
+    let cleanPassword = password.trim().toLowerCase();
+    // some cleaning up of answers
+    // remove plurality for the reversed clue only
+    if (key === "reversed" && cleanPassword.at(-1) === "s") {
+        cleanPassword = cleanPassword.slice(0, -1);
+    }
+    console.log(cleanRealPassword)
+    console.log(cleanPassword)
     if (cleanRealPassword && cleanPassword === cleanRealPassword) {
         return NextResponse.json({}, { status: 200 });
     }
