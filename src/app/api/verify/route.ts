@@ -24,10 +24,13 @@ export async function POST(
 
     const body = await request.json();
     const key: string = body.key;
-    const password = body.password;
+    const password: string = body.password;
+    // do some sanitation
+    const cleanRealPassword = passwords[key].trim().toLowerCase();
+    const cleanPassword = password.trim().toLowerCase();
     console.log(passwords[key])
     console.log(password)
-    if (passwords[key] && password === passwords[key]) {
+    if (cleanRealPassword && cleanPassword === cleanRealPassword) {
         return NextResponse.json({}, { status: 200 });
     }
     else {
