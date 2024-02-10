@@ -7,7 +7,7 @@ import React, { useState } from "react";
  * @param blockKey - the key to send to the backend in the body
  * @returns 
  */
-export default function PasswordInputPage(props: { codeBlock: string, blockKey: string, hint: string }) {
+export default function PasswordInputPage(props: { codeBlock: string, blockKey: string, hint: string, breakHint?: boolean }) {
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState('waiting');
     const [incorrect, setIncorrect] = useState(false);
@@ -45,7 +45,7 @@ export default function PasswordInputPage(props: { codeBlock: string, blockKey: 
     }
 
     return (
-        <main className="w-screen min-h-screen p-4 font-mono">
+        <main className="max-w-screen min-h-min p-4 font-mono">
             <h1 className="bg-lime-800 border border-white border-2 rounded-md p-2 whitespace-nowrap max-w-min text-white">
                 Code Blocks
             </h1>
@@ -60,7 +60,10 @@ export default function PasswordInputPage(props: { codeBlock: string, blockKey: 
 
                 <div className="bg-white border border-lime-800 border-2 rounded-md p-9 grid place-items-center max-w-min">
                     <div className="p-2 text-center text-sm text-lime-800">
-                        Hint: {props.hint}
+                        Hint:
+                        <div className={props.breakHint ? "inline-block text-pretty break-all" : ""}>
+                            {props.hint}
+                        </div>
                     </div>
 
                     <form onSubmit={handleFormSubmit} className="grid place-items-center">

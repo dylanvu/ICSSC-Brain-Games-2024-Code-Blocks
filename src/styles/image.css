@@ -3,3 +3,7 @@
     height: 80vw;
     position: relative;
 }
+
+.clue-image-container {
+    margin: auto;
+}
